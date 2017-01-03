@@ -1,16 +1,44 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-homestead.svg"></p>
+## Instructions
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/homestead"><img src="https://travis-ci.org/laravel/homestead.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/homestead"><img src="https://poser.pugx.org/laravel/homestead/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/homestead"><img src="https://poser.pugx.org/laravel/homestead/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/homestead"><img src="https://poser.pugx.org/laravel/homestead/license.svg" alt="License"></a>
-</p>
+- Clone this repo and cd into it.
 
-## Introduction
+- Run the following command to create the homestead config file:
+```
+// Mac / Linux...
+bash init.sh
 
-Laravel Homestead is an official, pre-packaged Vagrant box that provides you a wonderful development environment without requiring you to install PHP, a web server, and any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
+// Windows...
+init.bat
+```
 
-Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web server, PHP 7.1, MySQL, Postgres, Redis, Memcached, Node, and all of the other goodies you need to develop amazing Laravel applications.
+- Open the /Users/{{YOURUSERNAME}}/.homestead/Homestead.yaml file.
 
-Official documentation [is located here](http://laravel.com/docs/homestead).
+- Map the folders you want to share with guest and host systems.
+
+        map -> path of the project on host (you must have it before booting your vm, otherwise vagrant will complain)
+        to  -> path on vagrant box
+
+- Map the public folder of your project to a custom local domain, making it easier to access your site.
+
+        sites:
+            - map: myapplication.app
+              to: /home/vagrant/Code/Laravel/public
+
+- Edit the /etc/hosts file and include "192.168.10.10  myapplication.app"
+
+- Now you'll be able to access your project at http://myapplication.app
+
+- Run "vagrant up" to start your virtual machine
+
+- Generate a new Laravel project
+```
+composer create-project laravel/laravel myapplication
+```
+
+- Update the paths of the shared folder if necessary (in case it's different from what you specified in the steps above)
+
+Note:
+
+- If you're connecting to databases from the hosting machine, the username and password for both databases is homestead / secret.
+
+**@anazard**

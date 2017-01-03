@@ -39,4 +39,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if defined? VagrantPlugins::HostsUpdater
         config.hostsupdater.aliases = settings['sites'].map { |site| site['map'] }
     end
+
+    config.vm.provision "shell" do |s|
+      s.inline = "composer require laravel/homestead --dev"
+    end
+
+    config.vm.provider "virtualbox" do |v|
+      v.name = "LaravelVM"
+    end
 end
